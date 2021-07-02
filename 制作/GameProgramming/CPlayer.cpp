@@ -5,7 +5,7 @@
 #define VJ0 18
 //extern：他のソースファイルの外部変数にアクセスする宣言
 extern CTexture Texture;
-
+CPlayer*CPlayer::spInstance = 0;
 CPlayer::CPlayer()
 : mFx(1.0f), mFy(0.0f)
 , FireCount(0)
@@ -14,6 +14,7 @@ CPlayer::CPlayer()
 
 {
 	mTag = EPLAYER;
+	spInstance = this;
 }
 
 void CPlayer::Update() {
@@ -31,26 +32,9 @@ void CPlayer::Update() {
 		x += 3;
 		mFx = 1;
 		mFy = 0;
-		if (x + w > 400) {
-			x = 400 - w;
-		}
+	
 	}
-	if (CKey::Push('W')) {
-		y += 3;
-		mFx = 0;
-		mFy = 1;
-		if (y + h > 300) {
-			y = 300 - h;
-		}
-	}
-	if (CKey::Push('S')) {
-		y -= 3;
-		mFx = 0;
-		mFy = -1;
-		if (y - h < -300) {
-			y = -300 + h;
-		}
-	}
+
 
 	//スペースキーで弾発射
 	//0より大きいとき1減算する

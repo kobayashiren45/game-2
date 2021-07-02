@@ -12,7 +12,7 @@ public:
 	CPlayer();
 	void Update();
 	void Render();
-
+	static CPlayer*spInstance;
 	void Collision(CRectangle *i, CRectangle *y);
 };
 
