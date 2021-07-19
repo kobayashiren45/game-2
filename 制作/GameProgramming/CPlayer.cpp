@@ -8,13 +8,14 @@ extern CTexture Texture;
 CPlayer*CPlayer::spInstance = 0;
 CPlayer::CPlayer()
 : mFx(1.0f), mFy(0.0f)
-, FireCount(0)
+, FireCount(0), HP(3)
 ,mVj(0)
 , mJump(0)
 
 {
 	mTag = EPLAYER;
 	spInstance = this;
+	
 }
 
 void CPlayer::Update() {
@@ -85,6 +86,29 @@ void CPlayer::Collision(CRectangle *ri, CRectangle *ry) {
 				//Rectをxだけ移動する
 				x += mx;
 			}
+
+			else if (CRectangle::Collision(*ry)) {
+				switch (ry->mTag) {
+				case EBLOCK:
+					//衝突していれば反転
+					mFx *= -1;
+					mFy *= -1;
+					break;
+				case EENEMYBULLET:
+					HP -= 1;
+					//プレイヤーの弾に当たると、無効にする
+					if (HP == 0){
+						mEnabled = false;
+						
+					}
+					break;
+
+
+				}
+
+			}
+
+
 			else {
 				//Rectをyだけ移動する
 				y += my;

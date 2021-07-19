@@ -9,6 +9,8 @@ public:
 	int FireCount;
 	int mJump;
 	int mVj;
+	int HP;
+	static int GameOver;
 	CPlayer();
 	void Update();
 	void Render();
