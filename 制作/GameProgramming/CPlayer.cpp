@@ -87,26 +87,7 @@ void CPlayer::Collision(CRectangle *ri, CRectangle *ry) {
 				x += mx;
 			}
 
-			else if (CRectangle::Collision(*ry)) {
-				switch (ry->mTag) {
-				case EBLOCK:
-					//衝突していれば反転
-					mFx *= -1;
-					mFy *= -1;
-					break;
-				case EENEMYBULLET:
-					HP -= 1;
-					//プレイヤーの弾に当たると、無効にする
-					if (HP == 0){
-						mEnabled = false;
-						
-					}
-					break;
-
-
-				}
-
-			}
+			
 
 
 			else {
@@ -123,5 +104,24 @@ void CPlayer::Collision(CRectangle *ri, CRectangle *ry) {
 	
 		}
 	}
+	else if (CRectangle::Collision(*ry)) {
+		switch (ry->mTag) {
+		case EBLOCK:
+			//衝突していれば反転
+			mFx *= -1;
+			mFy *= -1;
+			break;
+		case EENEMYBULLET:
+			HP -= 1;
+			//プレイヤーの弾に当たると、無効にする
+			if (HP == 0){
+				mEnabled = false;
 
+			}
+			break;
+
+
+		}
+
+	}
 }
